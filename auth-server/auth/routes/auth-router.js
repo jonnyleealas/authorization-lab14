@@ -72,4 +72,5 @@ router.put('/article', bearer, can('update'), (req, res) => {
   res.status(200).send('You can update it')
 })
 
+
 module.exports = router;
