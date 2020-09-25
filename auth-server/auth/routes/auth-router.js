@@ -5,7 +5,8 @@ const express = require('express');
 const basicAuth = require('../middleware/basic.js');
 const bearer = require('../middleware/bearer.js');
 const can = require('../middleware/acl.js');
-const users = require('../models/users-model.js');
+const users = require('../models/users-model.js');//middlware uses models
+const authorize = require('../middleware/authorize')
 
 // Initialize Express Router
 const router = express.Router();
@@ -34,7 +35,6 @@ router.post('/signup', async (req, res, next) => {
     }
     res.status(200).json(object);
 
-
   } catch (e) {
     next(e.message);
   }
@@ -51,12 +51,17 @@ router.post('/signin', basicAuth, (req, res, next) => {
   res.status(200).json(object);
 });
 
+// Allows authorization 
+router.get('/authorized', authorize(), (req, res)=>{
+res.send('customer has been authorized')
+})
+
 router.get('/secret', bearer, (req, res) => {
   res.status(200).send(`Welcome, ${req.user.username}`)
 });
 
 router.get('/article', bearer, can('read'), (req, res) => {
-  res.status(200).send('You can read it')
+  res.status(200).send('you are authorized')
 })
 
 router.post('/article', bearer, can('create'), (req, res) => {

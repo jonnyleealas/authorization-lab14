@@ -11,5 +11,4 @@ module.exports = (capability) => {
       next('No Soup For You!')
     }
   }
-
 }

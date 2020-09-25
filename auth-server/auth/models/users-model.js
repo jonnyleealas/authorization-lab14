@@ -8,6 +8,7 @@ const users = mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
   role: { type: String, required: true, default: 'guest', enum: ['guest', 'author', 'editor', 'admin'] }
+ 
 })
 
 const roles = {
@@ -17,27 +18,31 @@ const roles = {
   admin: ['read', 'create', 'update', 'delete ']
 };
 
+
+
 users.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, 5);
   console.log('The password is', this.password);
 });
 
 users.methods.can = function (capability) {
-  return roles[this.role].includes(capability);
+  return roles[this.role].includes(capability);//is a role included
+
 }
+
 
 // Works with an instance, ie. userRecord.generateToken()
 users.methods.generateToken = function () {
   let tokenObject = {
     username: this.username,
-    role: this.role,
-    permissions: roles[this.role]
+    role: this.role,//this comes from the schema
+    permissions: roles[this.role]// this comes from const roles
   }
   let token = jwt.sign(tokenObject, process.env.SHOES)
   return token;
 }
 
-// Works without an instace, ie. users.validateBasic()
+// Works without an instance, ie. users.validateBasic()
 users.statics.validateBasic = async function (username, password) {
 
   // Look up the user by the username
