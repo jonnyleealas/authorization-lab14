@@ -43,5 +43,5 @@ typings/
 .yarn-integrity
 # dotenv environment variables file
 .env
-# node_modules
+# node_module
 /node_modules
