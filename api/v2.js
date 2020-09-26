@@ -13,6 +13,7 @@ const router = express.Router();
 const bearerAuth = require('../auth/middleware/bearer.js');
 const permissions = require('../auth/middleware/acl.js');
 
+
 // Evaluate the model, dynamically
 router.param('model', modelFinder.load);
 
