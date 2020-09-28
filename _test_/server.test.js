@@ -1,6 +1,6 @@
 'use strict';
 
-// require('dotenv').config();
+
 const server = require('../server.js');
 const supergoose = require('@code-fellows/supergoose');
 // const request = require('superagent');
@@ -12,7 +12,7 @@ describe('Basic error testing', () => {
 
     it('Should give a 404 error on a bad route', async() => {
       let res = await requiregoose.get('/bad');
-      expect(res.status).toEqual(404);
+      expect(res.status).toBe(404);
     })
   });
 
@@ -30,7 +30,7 @@ describe('Test Auth Router', () => {
         expect(result.user.password).toBeDefined();
         expect(result.user.role).toBe(obj.role);
         expect(result.token).toBeDefined();
-        expect(res.status).toEqual(200);
+        expect(res.status).toBe(200);
     })
 });
 
@@ -45,11 +45,11 @@ describe('Test auth routes', () => {
       }
   
       let res = await requiregoose.post('/signup').send(obj);
-      expect(res.body.user.username).toEqual('sally');
-      expect(res.body.user.role).toEqual('regular');
-      expect(res.body.user).toBeTruthy();
-      expect(res.body.token).toBeTruthy();
-      expect(res.status).toEqual(200);
+      expect(res.body.user.username).toBe('sally');
+      expect(res.body.user.role).toBe('regular');
+      expect(res.body.user).toBeDefined();
+      expect(res.body.token).toBeDefined();
+      expect(res.status).toBe(200);
     })
 });
 
@@ -63,7 +63,7 @@ describe('Testing signin', () => {
     }
 
     let result = await requiregoose.post('/signin').auth("sally", "jessy")
-    expect(result.body.token).toBeTruthy()
-    expect(result.status).toEqual(200)
+    expect(result.body.token).toBeDefined()
+    expect(result.status).toBe(200)
   })
 })
