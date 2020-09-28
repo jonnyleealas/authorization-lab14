@@ -56,14 +56,20 @@ describe('Test auth routes', () => {
 describe('Testing signin', () => {
 
   it('Should sign in and return status 200 ', async() => {
-
     let obj = {
-      username: "sally",
-      password: "jessy",
+      username: 'pick',
+      password: 'ulRick',
+      role: 'regular'
     }
-
-    let result = await requiregoose.post('/signin').auth("sally", "jessy")
+    let res = await requiregoose.post('/signup').send(obj);
+    let result = await requiregoose.post('/signin').auth("pick", "ulRick")
     expect(result.body.token).toBeDefined()
+    expect(result.body.user.username).toBe('pick');
+    expect(result.body.user.role).toBe('regular');
+    expect(result.body.user).toBeDefined();
+    expect(result.body.token).toBeDefined();
+    console.log('This is token in signin:',result.body.token)
     expect(result.status).toBe(200)
+    console.log(result.body)
   })
 })
