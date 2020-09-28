@@ -44,4 +44,4 @@ typings/
 # dotenv environment variables file
 .env
 # node_module
-/node_modules
+node_modules

@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const SHOES = process.env.SHOES || 'cheese' 
 
 const users = mongoose.Schema({
   username: { type: String, required: true },
@@ -38,7 +39,7 @@ users.methods.generateToken = function () {
     role: this.role,//this comes from the schema
     permissions: roles[this.role]// this comes from const roles
   }
-  let token = jwt.sign(tokenObject, process.env.SHOES)
+  let token = jwt.sign(tokenObject,SHOES)
   return token;
 }
 
@@ -58,7 +59,7 @@ users.statics.validateBasic = async function (username, password) {
 
 users.statics.authenticateWithToken = async function (token) {
   try {
-    const parsedToken = jwt.verify(token, process.env.SHOES);
+    const parsedToken = jwt.verify(token, SHOES);
     const user = this.findOne({ username: parsedToken.username })
     return user;
   } catch (e) {
