@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config();
+// require('dotenv').config();
 const server = require('../server.js');
 const supergoose = require('@code-fellows/supergoose');
 // const request = require('superagent');
