@@ -17,3 +17,8 @@ Add a MONGODB_URI=<path>
 ``` 
 npm test server.test.js
 ```
+
+# UML
+- [Bearer Auth](./assets/bearer.md)
+- [Oauth](./assets/oauth.md)
+- [Auth Server](./assets/authserver.md)

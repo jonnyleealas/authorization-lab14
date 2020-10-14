@@ -8,7 +8,7 @@ module.exports = (capability) => {
       next();
     }
     else {
-      next('No Soup For You!')
+      next('Not Capable!')
     }
   }
 }
